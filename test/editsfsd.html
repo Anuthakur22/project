@@ -1,0 +1,64 @@
+<html>
+<body>
+<?php 
+include('connection.php'); 
+ $id = $_GET['edit'];
+  if (isset($_POST['submit'])) {
+      $id = $_POST['id'];
+      $name = $_POST['name'];
+      $query = "UPDATE `users` SET `name` = '$name'WHERE `id`=$id";
+      // $query = "UPDATE `users` SET `name` = '$name', `phone` = '$phone', `address`='$address', `email`='$email' WHERE `id`=$id";
+      $result = mysqli_query($conn ,$query);
+      if($result)
+       {
+           echo 'Data Updated';
+           header("location:home.php");
+       }else{
+           echo 'Data Not Updated';
+       }
+      
+    }
+ 
+    $edit=mysqli_query($conn,"select * from users where id='".$id."'");
+    $erow=mysqli_fetch_array($edit);
+?>
+
+<div class="container">
+  <!-- Modal -->
+     <!-- <div class="modal fade" id="edit<?php //echo $row['userid']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+          <div class="modal-body">
+           <?php
+              // $query=mysqli_query($conn,"select * from `users`");
+              // while($row=mysqli_fetch_array($query)){
+              //   $edit=mysqli_query($conn,"select * from users where id='".$id."'");
+              //   $erow=mysqli_fetch_array($edit);
+              //  }
+            ?>
+            <!-- <p>Some text in the modal.</p> -->
+            <label for="name">Name:</label>
+            <input type="text" name="name" class="form-control" value="<?php echo $erow['name']; ?>">
+
+          </div>
+        <div class="modal-footer">
+          <input type="submit" name="submit" value="Submit" class="btn btn-default" data-dismiss="modal">
+           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
+https://www.webslesson.info/2016/10/php-ajax-update-mysql-data-through-bootstrap-modal.html
+https://www.webslesson.info/2016/10/php-ajax-update-mysql-data-through-bootstrap-modal.html
